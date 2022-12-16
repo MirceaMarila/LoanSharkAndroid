@@ -65,8 +65,9 @@ public class LoanSharkSignInController implements SignInController {
             String jwt = null;
             jwt = json.objectMapper.readValue(loginRunnable.getGenericResponse().getBody(), JwtResponse.class).getJwt();
 
+            //TODO("Delete this toast and save JWT in SharedPreferences with Context.MODE_PRIVATE like in this link: https://stackoverflow.com/questions/34191731/where-to-store-a-jwt-token")
             Toast.makeText(signInActivity.getApplicationContext(), jwt, Toast.LENGTH_LONG).show();
-            //TODO("Verify if exceptions are caught in the correct category")
+            //TODO("Verify if exceptions are caught in the correct category. If not, then is way harder to differentiate exceptions than I thought.")
         } catch (FieldCompletedIncorrectly e) {
             e.printStackTrace();
             //TODO("PIBKAC")
