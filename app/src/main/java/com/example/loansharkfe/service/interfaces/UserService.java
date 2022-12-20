@@ -11,6 +11,6 @@ public interface UserService {
 
     Boolean validateEmail(String email);
 
-    User saveNewUser(User user);
+    NetworkingRunnable saveNewUser(User user);
 
 }

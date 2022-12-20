@@ -2,7 +2,7 @@ package com.example.loansharkfe.config;
 
 public class PathConfig {
 
-    public static final String basePath = "http://192.168.0.171:8080/api";
+    public static final String basePath = "http://192.168.0.104:8080/api";
 
     public static final String versionPath = "/v1";
 

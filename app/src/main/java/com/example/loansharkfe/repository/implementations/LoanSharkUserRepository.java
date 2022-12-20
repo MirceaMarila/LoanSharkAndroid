@@ -16,7 +16,7 @@ public class LoanSharkUserRepository implements UserRepository {
     public LoanSharkUserRepository() {
     }
 
-    public NetworkingRunnable createLoginThread(UserLogin userLogin) {
+    public NetworkingRunnable createLoginRunnable(UserLogin userLogin) {
         return new NetworkingRunnable() {
                     @Override
                     public void run() {
