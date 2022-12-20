@@ -1,7 +1,7 @@
 package com.example.loansharkfe.repository.implementations;
 
 import com.example.loansharkfe.config.PathConfig;
-import com.example.loansharkfe.model.User;
+import com.example.loansharkfe.model.UserCreate;
 import com.example.loansharkfe.model.UserLogin;
 import com.example.loansharkfe.repository.interfaces.UserRepository;
 import com.example.loansharkfe.util.NetworkingRunnable;
@@ -30,7 +30,16 @@ public class LoanSharkUserRepository implements UserRepository {
     }
 
 
-    public User save(User user) {
-        return null;
+    public NetworkingRunnable createSaveNewUserRunnable(UserCreate userCreate) {
+        return new NetworkingRunnable() {
+            @Override
+            public void run() {
+                try{
+                    genericResponse = request.post(PathConfig.registerPath, userCreate);
+                } catch (Exception e){
+                    exception = e;
+                }
+            }
+        };
     }
 }

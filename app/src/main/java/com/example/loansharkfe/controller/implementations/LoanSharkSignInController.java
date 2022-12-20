@@ -69,29 +69,29 @@ public class LoanSharkSignInController implements SignInController {
             //TODO("Verify if exceptions are caught in the correct category. If not, then is way harder to differentiate exceptions than I thought.")
         } catch (FieldCompletedIncorrectly e) {
             e.printStackTrace();
-            //TODO("PIBKAC")
+            //TODO("PIBKAC") - problema de la user
         } catch (InterruptedException e) {
             e.printStackTrace();
-            //TODO("Handle exception. Thread died unexpectedly. Probably Android killed it for memory or inactivity reasons")
+            //TODO("Handle exception. Thread died unexpectedly. Probably Android killed it for memory or inactivity reasons") - try again
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            //TODO(Handle exception. Url is probably invalid. Check code)
+            //TODO(Handle exception. Url is probably invalid. Check code) - problema de cod
         } catch (ProtocolException e) {
             e.printStackTrace();
-            //TODO("Handle exception. Protocol error. Check code.")
+            //TODO("Handle exception. Protocol error. Check code.") - cod
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             //TODO("Handle exception. Json serialization failed. Maybe you got an unexpected error response from server like BadRequest. Check code")
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            //Todo("Handle exception. Encoding should be UTF-8 for everything and errors should not appear but who knows. Check if server sends Chinese characters")
+            //Todo("Handle exception. Encoding should be UTF-8 for everything and errors should not appear but who knows. Check if server sends Chinese characters") - cod
         } catch (IOException e) {
             e.printStackTrace();
             //TODO("Handle exception. Anything related to network not caught until now. Server offline, server unavailable, no internet connection
-            // reading from a closed connection, etc.")
+            // reading from a closed connection, etc.") - check internat and try again
         } catch (Exception e) {
             e.printStackTrace();
-            //TODO("Handle exception. Catastrophic failure of the application by an unknown reason. Check code(can happen even if code is correct)")
+            //TODO("Handle exception. Catastrophic failure of the application by an unknown reason. Check code(can happen even if code is correct)") - idk cabron, try again
         }
     }
 

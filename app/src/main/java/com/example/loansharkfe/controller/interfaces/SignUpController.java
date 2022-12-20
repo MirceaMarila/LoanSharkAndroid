@@ -4,4 +4,6 @@ public interface SignUpController {
 
     void setTextFromSignIn();
 
+    void createNewUser();
+
 }

@@ -10,4 +10,6 @@ public class PathConfig {
 
     public static final String loginPath = fullBasePath + "/auth/login";
 
+    public static final String registerPath = fullBasePath + "/auth/register";
+
 }

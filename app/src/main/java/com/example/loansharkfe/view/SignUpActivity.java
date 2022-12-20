@@ -14,8 +14,8 @@ import com.example.loansharkfe.controller.interfaces.SignUpController;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    public EditText email, username, password, first_name, last_name;
-    public Button sign_up;
+    public EditText email, username, password, firstName, lastName;
+    public Button signUp;
 
 
     private SignUpController signUpController;
@@ -29,20 +29,21 @@ public class SignUpActivity extends AppCompatActivity {
         email = findViewById(R.id.email_signup);
         username = findViewById(R.id.username_signup);
         password = findViewById(R.id.password_signup);
-        first_name = findViewById(R.id.firstname_signup);
-        last_name = findViewById(R.id.lastname_signup);
-        sign_up = findViewById(R.id.button_signup_sigup);
+        firstName = findViewById(R.id.firstname_signup);
+        lastName = findViewById(R.id.lastname_signup);
+        signUp = findViewById(R.id.button_signup_sigup);
 
 
         signUpController = new LoanSharkSignUpController(this);
 
         signUpController.setTextFromSignIn();
 
-        sign_up.setOnClickListener(new View.OnClickListener() {
+        signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO("Use controller to create an user then automatically login")
                 //TODO("Start new activity. Should be the same that you land on after signing in")
+                signUpController.createNewUser();
             }
         });
 
