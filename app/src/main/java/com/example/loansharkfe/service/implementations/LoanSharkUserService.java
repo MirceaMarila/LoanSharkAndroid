@@ -35,10 +35,10 @@ public class LoanSharkUserService implements UserService {
         if (userLogin.getPassword().isEmpty())
             throw new FieldCompletedIncorrectly("Password must not be empty!");
 
-        return userRepository.createLoginThread(userLogin);
+        return userRepository.createLoginRunnable(userLogin);
     }
 
-    public User saveNewUser(User user) {
+    public NetworkingRunnable saveNewUser(User user) {
         return null;
     }
 

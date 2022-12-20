@@ -6,7 +6,7 @@ import com.example.loansharkfe.util.NetworkingRunnable;
 
 public interface UserRepository {
 
-    public NetworkingRunnable createLoginThread(UserLogin userLogin);
+    public NetworkingRunnable createLoginRunnable(UserLogin userLogin);
 
     public User save(User user);
 
