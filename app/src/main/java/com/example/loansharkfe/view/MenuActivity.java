@@ -28,14 +28,14 @@ public class MenuActivity extends AppCompatActivity {
         viewEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // view events
+                menuController.startEventsActivity();
             }
         });
 
         viewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // view profile
+                menuController.startProfileActivity();
             }
         });
 
@@ -49,10 +49,4 @@ public class MenuActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed()
-    {
-        super.onBackPressed();
-        menuController.startSignInActivity();
-    }
 }

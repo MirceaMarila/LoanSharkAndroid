@@ -26,6 +26,7 @@ public class SharedPreferencesService {
     }
 
     public void deleteSharedPreferences(String key){
+        prefs=activity_context.getSharedPreferences("myPrefs",Context.MODE_PRIVATE);
         prefs.edit().remove(key).apply();
     }
 

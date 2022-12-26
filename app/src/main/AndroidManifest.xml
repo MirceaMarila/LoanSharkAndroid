@@ -12,14 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoanSharkFE">
         <activity
-            android:name=".EventsActivity"
+            android:name=".view.ProfileActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MenuActivity"
+            android:name=".view.EventsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".view.MenuActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

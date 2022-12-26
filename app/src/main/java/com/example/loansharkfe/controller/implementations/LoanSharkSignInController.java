@@ -12,6 +12,7 @@ import com.example.loansharkfe.R;
 import com.example.loansharkfe.constants.BugTypes;
 import com.example.loansharkfe.controller.interfaces.SignInController;
 import com.example.loansharkfe.dto.JwtResponse;
+import com.example.loansharkfe.exceptions.ErrorFromServer;
 import com.example.loansharkfe.exceptions.FieldCompletedIncorrectly;
 import com.example.loansharkfe.model.UserLogin;
 import com.example.loansharkfe.service.implementations.LoanSharkUserService;
@@ -62,8 +63,7 @@ public class LoanSharkSignInController implements SignInController {
 
         UserLogin userLogin = createUserLogin();
 
-        try {
-            NetworkingRunnable loginRunnable = userService.createLoginRunnable(userLogin);
+        try {NetworkingRunnable loginRunnable = userService.createLoginRunnable(userLogin);
             Thread loginThread = new Thread(loginRunnable);
 
             progressBarController.showProgressBar();
@@ -74,16 +74,20 @@ public class LoanSharkSignInController implements SignInController {
             if (loginRunnable.getException() != null)
                 throw loginRunnable.getException();
 
-            String jwt = json.objectMapper.readValue(loginRunnable.getGenericResponse().getBody(), JwtResponse.class).getJwt();
+            if (loginRunnable.getGenericResponse().getResponseCode() == 401)
+                throw new ErrorFromServer("Invalid credentials!");
 
+
+            String jwt = json.objectMapper.readValue(loginRunnable.getGenericResponse().getBody(), JwtResponse.class).getJwt();
             sharedPreferencesService.postSharedPreferences("jwt", jwt);
             startMenuActivity();
 
-            if (loginRunnable.getGenericResponse().getResponseCode() == 401)
-                Toast.makeText(signInActivity.getApplicationContext(), "Invalid credentials", Toast.LENGTH_LONG).show();
 
 
-        } catch (FieldCompletedIncorrectly e) {
+        } catch (ErrorFromServer e) {
+            e.printStackTrace();
+            bugReportController.handleBug(e, "Invalid credentials!", BugTypes.USER);
+        }catch (FieldCompletedIncorrectly e) {
             e.printStackTrace();
             bugReportController.handleBug(e, "One field is empty or incorrectly completed!", BugTypes.USER);
         } catch (InterruptedException e) {
@@ -117,7 +121,7 @@ public class LoanSharkSignInController implements SignInController {
 
         } catch (Exception e) {
             e.printStackTrace();
-            bugReportController.handleBug(e, "Something went wrong. Check internet connection and try again!", BugTypes.OTHER);
+            bugReportController.handleBug(e, "Something went wrong. Check internet connection and try again!", BugTypes.CODE);
         }
     }
 
