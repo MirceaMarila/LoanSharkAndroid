@@ -1,6 +1,8 @@
 package com.example.loansharkfe.repository.implementations;
 
 import com.example.loansharkfe.config.PathConfig;
+import com.example.loansharkfe.constants.HTTPMethods;
+import com.example.loansharkfe.dto.GenericResponse;
 import com.example.loansharkfe.model.UserCreate;
 import com.example.loansharkfe.model.UserLogin;
 import com.example.loansharkfe.repository.interfaces.UserRepository;

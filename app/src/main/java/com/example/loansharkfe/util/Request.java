@@ -3,6 +3,7 @@ package com.example.loansharkfe.util;
 import com.example.loansharkfe.config.HttpConfig;
 import com.example.loansharkfe.constants.HTTPMethods;
 import com.example.loansharkfe.dto.GenericResponse;
+import com.example.loansharkfe.model.UserLogin;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.io.BufferedReader;

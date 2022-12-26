@@ -6,4 +6,8 @@ public interface SignUpController {
 
     void createNewUser();
 
+    void startSignInActivity();
+
+    void startMenuActivity();
+
 }
