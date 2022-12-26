@@ -6,4 +6,6 @@ public interface SignInController {
 
     void startSignUpActivity();
 
+    void startMenuActivity();
+
 }

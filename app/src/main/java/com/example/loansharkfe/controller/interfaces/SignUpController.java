@@ -4,4 +4,10 @@ public interface SignUpController {
 
     void setTextFromSignIn();
 
+    void createNewUser();
+
+    void startSignInActivity();
+
+    void startMenuActivity();
+
 }

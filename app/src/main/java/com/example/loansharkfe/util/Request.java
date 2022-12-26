@@ -3,12 +3,17 @@ package com.example.loansharkfe.util;
 import com.example.loansharkfe.config.HttpConfig;
 import com.example.loansharkfe.constants.HTTPMethods;
 import com.example.loansharkfe.dto.GenericResponse;
+import com.example.loansharkfe.model.UserLogin;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 
 public class Request {

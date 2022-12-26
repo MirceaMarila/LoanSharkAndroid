@@ -1,7 +1,7 @@
 package com.example.loansharkfe.service.interfaces;
 
 import com.example.loansharkfe.exceptions.FieldCompletedIncorrectly;
-import com.example.loansharkfe.model.User;
+import com.example.loansharkfe.model.UserCreate;
 import com.example.loansharkfe.model.UserLogin;
 import com.example.loansharkfe.util.NetworkingRunnable;
 
@@ -11,6 +11,6 @@ public interface UserService {
 
     Boolean validateEmail(String email);
 
-    NetworkingRunnable saveNewUser(User user);
+    NetworkingRunnable createSaveNewUserRunnable(UserCreate userCreate) throws FieldCompletedIncorrectly;
 
 }
