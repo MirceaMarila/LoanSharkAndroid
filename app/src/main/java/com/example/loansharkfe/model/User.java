@@ -1,5 +1,6 @@
 package com.example.loansharkfe.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class User {
@@ -14,14 +15,15 @@ public class User {
     private Boolean accountNonLocked;
     private Boolean accountNonExpired;
     private Boolean credentialsNonExpired;
-
-    //private List<String> authorities;
+    private List<Integer> roles;
+    private List<Integer> friendsIds;
+    private List<Integer> pendingFriendRequestsUsersIds;
 
 
     public User() {
     }
 
-    public User(Integer id, String email, String username, String password, String firstName, String lastName, Boolean enabled, Boolean accountNonLocked, Boolean accountNonExpired, Boolean credentialsNonExpired, List<String> authorities) {
+    public User(Integer id, String email, String username, String password, String firstName, String lastName, Boolean enabled, Boolean accountNonLocked, Boolean accountNonExpired, Boolean credentialsNonExpired, List<Integer> roles, List<Integer> friends, List<Integer> pendingFriendRequests) {
         this.id = id;
         this.email = email;
         this.username = username;
@@ -32,7 +34,9 @@ public class User {
         this.accountNonLocked = accountNonLocked;
         this.accountNonExpired = accountNonExpired;
         this.credentialsNonExpired = credentialsNonExpired;
-        //this.authorities = authorities;
+        this.roles = roles;
+        this.friendsIds = friends;
+        this.pendingFriendRequestsUsersIds = pendingFriendRequests;
     }
 
     public void setId(Integer id) {
@@ -115,11 +119,27 @@ public class User {
         this.credentialsNonExpired = credentialsNonExpired;
     }
 
-    //public List<String> getAuthorities() {
-    //    return authorities;
-    //}
-//
-    //public void setAuthorities(List<String> authorities) {
-    //    this.authorities = authorities;
-    //}
+    public List<Integer> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Integer> roles) {
+        this.roles = roles;
+    }
+
+    public List<Integer> getFriendsIds() {
+        return friendsIds;
+    }
+
+    public void setFriendsIds(List<Integer> friendsIds) {
+        this.friendsIds = friendsIds;
+    }
+
+    public List<Integer> getPendingFriendRequestsUsersIds() {
+        return pendingFriendRequestsUsersIds;
+    }
+
+    public void setPendingFriendRequestsUsersIds(List<Integer> pendingFriendRequestsUsersIds) {
+        this.pendingFriendRequestsUsersIds = pendingFriendRequestsUsersIds;
+    }
 }

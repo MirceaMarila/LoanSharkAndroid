@@ -102,7 +102,7 @@ public class LoanSharkSignUpController implements SignUpController {
                  throw new ErrorFromServer(createNewUserRunnable.getGenericResponse().getResponseMessage());
 
             User user = json.objectMapper.readValue(createNewUserRunnable.getGenericResponse().getBody(), User.class);
-            sharedPreferencesService.postSharedPreferences("user", json.objectMapper.writeValueAsString(user));
+            sharedPreferencesService.postSharedPreferences("user", user.getUsername());
             startMenuActivity();
 
 

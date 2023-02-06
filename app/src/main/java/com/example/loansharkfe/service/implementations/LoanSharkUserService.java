@@ -1,11 +1,17 @@
 package com.example.loansharkfe.service.implementations;
 
+import android.content.Context;
+
+import com.example.loansharkfe.controller.implementations.ProgressBarController;
+import com.example.loansharkfe.dto.UsersIdsRequest;
 import com.example.loansharkfe.exceptions.FieldCompletedIncorrectly;
+import com.example.loansharkfe.model.User;
 import com.example.loansharkfe.model.UserCreate;
 import com.example.loansharkfe.model.UserLogin;
 import com.example.loansharkfe.repository.implementations.LoanSharkUserRepository;
 import com.example.loansharkfe.repository.interfaces.UserRepository;
 import com.example.loansharkfe.service.interfaces.UserService;
+import com.example.loansharkfe.util.Json;
 import com.example.loansharkfe.util.NetworkingRunnable;
 
 import java.util.regex.Matcher;
@@ -14,9 +20,12 @@ import java.util.regex.Pattern;
 public class LoanSharkUserService implements UserService {
 
     private UserRepository userRepository;
+    private Json json;
 
     public LoanSharkUserService() {
-        userRepository = new LoanSharkUserRepository();
+        this.userRepository = new LoanSharkUserRepository();
+        this.json = Json.getInstance();
+
     }
 
 
@@ -53,6 +62,9 @@ public class LoanSharkUserService implements UserService {
             throw new FieldCompletedIncorrectly("Password must contain minimum eight characters, " +
                     "at least one uppercase letter, one lowercase letter and one number");
 
+        if(userCreate.getUsername().contains("@"))
+            throw new FieldCompletedIncorrectly("Username can not contain @");
+
         if (userCreate.getUsername().isEmpty())
             throw new FieldCompletedIncorrectly("UserCreate name must not be empty!");
 
@@ -64,6 +76,48 @@ public class LoanSharkUserService implements UserService {
 
         return userRepository.createSaveNewUserRunnable(userCreate);
 
+    }
+
+    public User getUserByUsername(String username, Context applicationContext, ProgressBarController progressBarController) throws Exception {
+        SharedPreferencesService sharedPreferencesService = new SharedPreferencesService(applicationContext);
+        String jwt = sharedPreferencesService.getSharedPreferences("jwt");
+        NetworkingRunnable getUserByUsernameRunnable = userRepository.getUserByUsernameRunnable(username, jwt);
+
+        Thread checkUserExistance = new Thread(getUserByUsernameRunnable);
+        if (progressBarController != null)
+            progressBarController.showProgressBar();
+        checkUserExistance.start();
+        checkUserExistance.join();
+        if (progressBarController != null)
+            progressBarController.hideProgressBar();
+
+        if (getUserByUsernameRunnable.getException() != null)
+            throw getUserByUsernameRunnable.getException();
+
+        return json.objectMapper.readValue(getUserByUsernameRunnable.getGenericResponse().getBody(), User.class);
+    }
+
+    public User getUserByEmail(String email, Context applicationContext, ProgressBarController progressBarController) throws Exception {
+        SharedPreferencesService sharedPreferencesService = new SharedPreferencesService(applicationContext);
+        String jwt = sharedPreferencesService.getSharedPreferences("jwt");
+        NetworkingRunnable getUserByEmailRunnable = userRepository.getUserByEmailRunnable(email, jwt);
+
+        Thread checkUserExistance = new Thread(getUserByEmailRunnable);
+        if (progressBarController != null)
+            progressBarController.showProgressBar();
+        checkUserExistance.start();
+        checkUserExistance.join();
+        if (progressBarController != null)
+            progressBarController.hideProgressBar();
+
+        if (getUserByEmailRunnable.getException() != null)
+            throw getUserByEmailRunnable.getException();
+
+        return json.objectMapper.readValue(getUserByEmailRunnable.getGenericResponse().getBody(), User.class);
+    }
+
+    public NetworkingRunnable createSendFriendRequestRunnable(Integer myId, UsersIdsRequest usersIdsRequest, String jwt){
+        return userRepository.sendFriendRequestRunnable(myId, usersIdsRequest, jwt);
     }
 
 }

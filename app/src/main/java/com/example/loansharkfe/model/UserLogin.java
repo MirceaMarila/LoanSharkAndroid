@@ -3,7 +3,6 @@ package com.example.loansharkfe.model;
 public class UserLogin {
 
     private String usernameOrEmail;
-
     private String password;
 
     public UserLogin() {

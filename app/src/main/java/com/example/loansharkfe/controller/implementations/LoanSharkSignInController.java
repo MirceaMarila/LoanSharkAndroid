@@ -14,6 +14,7 @@ import com.example.loansharkfe.controller.interfaces.SignInController;
 import com.example.loansharkfe.dto.JwtResponse;
 import com.example.loansharkfe.exceptions.ErrorFromServer;
 import com.example.loansharkfe.exceptions.FieldCompletedIncorrectly;
+import com.example.loansharkfe.model.User;
 import com.example.loansharkfe.model.UserLogin;
 import com.example.loansharkfe.service.implementations.LoanSharkUserService;
 import com.example.loansharkfe.service.implementations.SharedPreferencesService;
@@ -80,9 +81,15 @@ public class LoanSharkSignInController implements SignInController {
 
             String jwt = json.objectMapper.readValue(loginRunnable.getGenericResponse().getBody(), JwtResponse.class).getJwt();
             sharedPreferencesService.postSharedPreferences("jwt", jwt);
+            String currentUsername = userLogin.getUsernameOrEmail();
+
+            if (currentUsername.contains("@")) {
+                User currentUser = userService.getUserByEmail(userLogin.getUsernameOrEmail(), signInActivity.getApplicationContext(), progressBarController);
+                currentUsername = currentUser.getUsername();
+            }
+
+            sharedPreferencesService.postSharedPreferences("user", currentUsername);
             startMenuActivity();
-
-
 
         } catch (ErrorFromServer e) {
             e.printStackTrace();
