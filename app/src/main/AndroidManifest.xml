@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoanSharkFE">
         <activity
-            android:name=".ManagePendingRequestsActivity"
+            android:name=".view.ManagePendingRequestsActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
