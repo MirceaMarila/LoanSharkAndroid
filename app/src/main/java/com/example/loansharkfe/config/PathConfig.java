@@ -14,8 +14,13 @@ public class PathConfig {
 
     public static final String getUserByUsernamePath = fullBasePath + "/user/username";
 
+    public static final String getUserByIdPath = fullBasePath + "/user/id";
+
     public static final String getUserByEmailPath = fullBasePath + "/user/email";
 
     public static final String sendFriendRequestPath = fullBasePath + "/user/friends/request";
 
+    public static final String updateProfilePicturePath = fullBasePath + "/user/set/profile/picture";
+
+    public static final String manageFriendRequestPath = fullBasePath + "/user/friends/request";
 }

@@ -49,6 +49,13 @@ public class FriendsListActivity extends AppCompatActivity {
                 addFriendController.addFriend();
             }
         });
+
+        managePandingRequests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                friendsListController.startManagePendingRequestsActivity();
+            }
+        });
     }
 
     @Override

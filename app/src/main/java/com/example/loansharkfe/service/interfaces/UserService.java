@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.loansharkfe.controller.implementations.ProgressBarController;
 import com.example.loansharkfe.dto.UsersIdsRequest;
 import com.example.loansharkfe.exceptions.FieldCompletedIncorrectly;
+import com.example.loansharkfe.model.BytesImage;
 import com.example.loansharkfe.model.User;
 import com.example.loansharkfe.model.UserCreate;
 import com.example.loansharkfe.model.UserLogin;
@@ -20,7 +21,15 @@ public interface UserService {
 
     User getUserByUsername(String username, Context applicationContext, ProgressBarController progressBarController) throws Exception;
 
+    User getUserById(Integer id, Context applicationContext, ProgressBarController progressBarController) throws Exception;
+
     User getUserByEmail(String email, Context applicationContext, ProgressBarController progressBarController) throws Exception;
 
     NetworkingRunnable createSendFriendRequestRunnable(Integer myId, UsersIdsRequest usersIdsRequest, String jwt);
+
+    NetworkingRunnable createUpdateProfilePictureRunnable(BytesImage bytesImage, Context applicationContext) throws Exception;
+
+    NetworkingRunnable createAcceptFriendRequestRunnable(Integer myId, Integer friendId, Context applicationContext);
+
+    NetworkingRunnable createDeclineFriendRequestRunnable(Integer myId, Integer friendId, Context applicationContext);
 }

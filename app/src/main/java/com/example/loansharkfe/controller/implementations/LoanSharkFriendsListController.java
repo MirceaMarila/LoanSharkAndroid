@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import com.example.loansharkfe.controller.interfaces.FriendsListController;
 import com.example.loansharkfe.view.FriendsListActivity;
+import com.example.loansharkfe.view.ManagePendingRequestsActivity;
 import com.example.loansharkfe.view.MenuActivity;
 import com.example.loansharkfe.view.ProfileActivity;
 
@@ -21,6 +22,12 @@ public class LoanSharkFriendsListController implements FriendsListController {
 
     public void startProfileActivity() {
         Intent intent = new Intent(friendsListActivity, ProfileActivity.class);
+        friendsListActivity.startActivity(intent);
+        friendsListActivity.finish();
+    }
+
+    public void startManagePendingRequestsActivity(){
+        Intent intent = new Intent(friendsListActivity, ManagePendingRequestsActivity.class);
         friendsListActivity.startActivity(intent);
         friendsListActivity.finish();
     }

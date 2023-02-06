@@ -9,4 +9,6 @@ public interface ProfileController {
     void startFriendsListActivity();
 
     void fillInAllTheFields() throws Exception;
+
+    void updateProfilePicture(byte[] encodedImage) throws Exception;
 }

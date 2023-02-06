@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.loansharkfe.controller.implementations.ProgressBarController;
 import com.example.loansharkfe.dto.UsersIdsRequest;
 import com.example.loansharkfe.exceptions.FieldCompletedIncorrectly;
+import com.example.loansharkfe.model.BytesImage;
 import com.example.loansharkfe.model.User;
 import com.example.loansharkfe.model.UserCreate;
 import com.example.loansharkfe.model.UserLogin;
@@ -78,6 +79,25 @@ public class LoanSharkUserService implements UserService {
 
     }
 
+    public User getUserById(Integer id, Context applicationContext, ProgressBarController progressBarController) throws Exception {
+        SharedPreferencesService sharedPreferencesService = new SharedPreferencesService(applicationContext);
+        String jwt = sharedPreferencesService.getSharedPreferences("jwt");
+        NetworkingRunnable getUserByUsernameRunnable = userRepository.getUserByIdRunnable(id, jwt);
+
+        Thread checkUserExistance = new Thread(getUserByUsernameRunnable);
+        if (progressBarController != null)
+            progressBarController.showProgressBar();
+        checkUserExistance.start();
+        checkUserExistance.join();
+        if (progressBarController != null)
+            progressBarController.hideProgressBar();
+
+        if (getUserByUsernameRunnable.getException() != null)
+            throw getUserByUsernameRunnable.getException();
+
+        return json.objectMapper.readValue(getUserByUsernameRunnable.getGenericResponse().getBody(), User.class);
+    }
+
     public User getUserByUsername(String username, Context applicationContext, ProgressBarController progressBarController) throws Exception {
         SharedPreferencesService sharedPreferencesService = new SharedPreferencesService(applicationContext);
         String jwt = sharedPreferencesService.getSharedPreferences("jwt");
@@ -118,6 +138,28 @@ public class LoanSharkUserService implements UserService {
 
     public NetworkingRunnable createSendFriendRequestRunnable(Integer myId, UsersIdsRequest usersIdsRequest, String jwt){
         return userRepository.sendFriendRequestRunnable(myId, usersIdsRequest, jwt);
+    }
+
+    public NetworkingRunnable createUpdateProfilePictureRunnable(BytesImage bytesImage, Context applicationContext) throws Exception {
+        SharedPreferencesService sharedPreferencesService = new SharedPreferencesService(applicationContext);
+        String jwt = sharedPreferencesService.getSharedPreferences("jwt");
+        Integer myId = getUserByUsername(sharedPreferencesService.getSharedPreferences("user"), applicationContext, null).getId();
+
+        return userRepository.updateProfilePictureRunnable(myId, bytesImage, jwt);
+    }
+
+    public NetworkingRunnable createAcceptFriendRequestRunnable(Integer myId, Integer friendId, Context applicationContext){
+        SharedPreferencesService sharedPreferencesService = new SharedPreferencesService(applicationContext);
+        String jwt = sharedPreferencesService.getSharedPreferences("jwt");
+
+        return userRepository.acceptFriendRequestRunnable(myId, friendId, jwt);
+    }
+
+    public NetworkingRunnable createDeclineFriendRequestRunnable(Integer myId, Integer friendId, Context applicationContext){
+        SharedPreferencesService sharedPreferencesService = new SharedPreferencesService(applicationContext);
+        String jwt = sharedPreferencesService.getSharedPreferences("jwt");
+
+        return userRepository.declineFriendRequestRunnable(myId, friendId, jwt);
     }
 
 }
