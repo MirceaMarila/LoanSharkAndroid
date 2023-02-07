@@ -13,6 +13,12 @@ public class SharedPreferencesService {
     }
 
     public void postSharedPreferences(String key, String value){
+        try{
+            deleteSharedPreferences(key);
+        }
+        catch (Exception exception) {
+            //nada
+        }
         SharedPreferences.Editor edit;
         prefs=activity_context.getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
         edit=prefs.edit();

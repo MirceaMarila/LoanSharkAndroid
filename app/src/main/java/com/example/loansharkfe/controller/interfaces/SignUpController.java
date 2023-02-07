@@ -10,4 +10,6 @@ public interface SignUpController {
 
     void startMenuActivity();
 
+    void updateProfilePicture(String image) throws Exception;
+
 }

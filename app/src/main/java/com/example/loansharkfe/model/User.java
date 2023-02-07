@@ -7,32 +7,37 @@ public class User {
     private Integer id;
     private String email;
     private String username;
-    private String password;
     private String firstName;
     private String lastName;
     private Boolean enabled;
     private Boolean accountNonLocked;
     private Boolean accountNonExpired;
     private Boolean credentialsNonExpired;
-
-    //private List<String> authorities;
+    private List<Integer> rolesIds;
+    private List<Integer> friendsIds;
+    private List<Integer> pendingFriendRequestsUsersIds;
+    private Integer imageId;
+    private String description;
 
 
     public User() {
     }
 
-    public User(Integer id, String email, String username, String password, String firstName, String lastName, Boolean enabled, Boolean accountNonLocked, Boolean accountNonExpired, Boolean credentialsNonExpired, List<String> authorities) {
+    public User(Integer id, String email, String username, String firstName, String lastName, Boolean enabled, Boolean accountNonLocked, Boolean accountNonExpired, Boolean credentialsNonExpired, List<Integer> roles, List<Integer> friends, List<Integer> pendingFriendRequests, Integer imageId, String description) {
         this.id = id;
         this.email = email;
         this.username = username;
-        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.enabled = enabled;
         this.accountNonLocked = accountNonLocked;
         this.accountNonExpired = accountNonExpired;
         this.credentialsNonExpired = credentialsNonExpired;
-        //this.authorities = authorities;
+        this.rolesIds = roles;
+        this.friendsIds = friends;
+        this.pendingFriendRequestsUsersIds = pendingFriendRequests;
+        this.imageId = imageId;
+        this.description = description;
     }
 
     public void setId(Integer id) {
@@ -57,14 +62,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFirstName() {
@@ -115,11 +112,43 @@ public class User {
         this.credentialsNonExpired = credentialsNonExpired;
     }
 
-    //public List<String> getAuthorities() {
-    //    return authorities;
-    //}
-//
-    //public void setAuthorities(List<String> authorities) {
-    //    this.authorities = authorities;
-    //}
+    public List<Integer> getRolesIds() {
+        return rolesIds;
+    }
+
+    public void setRolesIds(List<Integer> rolesIds) {
+        this.rolesIds = rolesIds;
+    }
+
+    public List<Integer> getFriendsIds() {
+        return friendsIds;
+    }
+
+    public void setFriendsIds(List<Integer> friendsIds) {
+        this.friendsIds = friendsIds;
+    }
+
+    public List<Integer> getPendingFriendRequestsUsersIds() {
+        return pendingFriendRequestsUsersIds;
+    }
+
+    public void setPendingFriendRequestsUsersIds(List<Integer> pendingFriendRequestsUsersIds) {
+        this.pendingFriendRequestsUsersIds = pendingFriendRequestsUsersIds;
+    }
+
+    public Integer getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(Integer imageId) {
+        this.imageId = imageId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

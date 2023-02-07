@@ -2,7 +2,6 @@ package com.example.loansharkfe.controller.implementations;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -13,12 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.loansharkfe.R;
 import com.example.loansharkfe.constants.BugTypes;
-import com.example.loansharkfe.dto.JwtResponse;
 import com.example.loansharkfe.model.BugReport;
 import com.example.loansharkfe.repository.implementations.LoanSharkBugReportRepository;
 import com.example.loansharkfe.repository.interfaces.BugReportRepository;
 import com.example.loansharkfe.util.NetworkingRunnable;
-import com.example.loansharkfe.view.SignInActivity;
 
 import java.util.List;
 
@@ -73,7 +70,7 @@ public class BugReportController {
                         BugReport bugReport = new BugReport(exception);
                         if (bugReport.getClassName().equals(""))
                             bugReport.setClassName(context.getClass().getSimpleName());
-                        Toast.makeText(context, context.getClass().getSimpleName(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Bug reported! Thank you!", Toast.LENGTH_LONG).show();
 
                         NetworkingRunnable bugReportRunnable = bugReportRepository.createSendErrorRunnable(bugReport);
                         Thread bugReportThread = new Thread(bugReportRunnable);
