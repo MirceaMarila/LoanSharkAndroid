@@ -27,4 +27,8 @@ public class PathConfig {
     public static final String getUserProfileByIdPath = fullBasePath + "/user/profile";
 
     public static final String createNewEventPath = fullBasePath + "/event/new";
+
+    public static final String getAllEventsOfUser = fullBasePath + "/event/root/contains/user";
+
+    public static final String getEventByIdPath = fullBasePath + "/event";
 }

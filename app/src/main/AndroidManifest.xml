@@ -13,14 +13,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoanSharkFE">
         <activity
-            android:name=".EventPageActivity"
+            android:name=".view.SubEventPageActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".AddMembersActivity"
+            android:name=".view.EventPageActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

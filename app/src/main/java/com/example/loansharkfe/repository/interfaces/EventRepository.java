@@ -6,4 +6,8 @@ import com.example.loansharkfe.util.NetworkingRunnable;
 public interface EventRepository {
 
     NetworkingRunnable createSaveNewEventRunnable(EventCreate eventCreate, String jwt);
+
+    NetworkingRunnable createGetEventsOfUserRunnable(Integer userId, String jwt);
+
+    NetworkingRunnable createGetEventByIdRunnable(Integer eventId, String jwt);
 }

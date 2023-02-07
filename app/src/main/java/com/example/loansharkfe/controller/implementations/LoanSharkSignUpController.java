@@ -103,7 +103,7 @@ public class LoanSharkSignUpController implements SignUpController {
             User user = json.objectMapper.readValue(createNewUserRunnable.getGenericResponse().getBody(), User.class);
             sharedPreferencesService.postSharedPreferences("user", user.getUsername());
             sharedPreferencesService.postSharedPreferences("id", user.getId().toString());
-            startMenuActivity();
+            startSignInActivity();
 
 
         } catch (FileNotFoundException e) {

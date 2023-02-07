@@ -5,47 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="8"
+    android:weightSum="4"
     tools:context=".view.EventPageActivity">
 
     <TextView
-        android:id="@+id/nameEventPage"
+        android:id="@+id/nameSubEventPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:hint="Name" />
 
     <TextView
-        android:id="@+id/descriptionEventPage"
+        android:id="@+id/descriptionSubEventPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:hint="Description" />
 
     <TextView
-        android:id="@+id/adminEventPage"
+        android:id="@+id/adminSubEventPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:hint="Admin" />
 
     <TextView
-        android:id="@+id/membersEventPage"
+        android:id="@+id/membersSubEventPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:hint="Members" />
-
-    <Button
-        android:id="@+id/createSubEventEventPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Create subevent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/subeventsRecyclerViewEventPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="3" />
 </LinearLayout>

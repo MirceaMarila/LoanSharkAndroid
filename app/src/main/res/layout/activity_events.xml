@@ -25,14 +25,6 @@
             android:layout_marginRight="10dp"
             android:text="Create a new event" />
 
-        <Button
-            android:id="@+id/deleteEventBtnEvents"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:text="Delete an event" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

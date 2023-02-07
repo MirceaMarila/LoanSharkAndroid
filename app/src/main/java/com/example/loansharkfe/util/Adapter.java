@@ -69,9 +69,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         }
 
         public void setData(String imageString, String userName, String firstname, String lastname) {
+            if (imageString != null){
             byte[] decodedString = Base64.decode(imageString, Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            image.setImageBitmap(decodedByte);
+            image.setImageBitmap(decodedByte);}
+
             username.setText(userName);
             firstName.setText(firstname);
             lastName.setText(lastname);

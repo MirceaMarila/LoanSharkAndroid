@@ -3,6 +3,7 @@ package com.example.loansharkfe.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,12 +13,15 @@ import com.example.loansharkfe.controller.implementations.LoanSharkEventsControl
 import com.example.loansharkfe.controller.implementations.LoanSharkSignInController;
 import com.example.loansharkfe.controller.interfaces.EventsController;
 import com.example.loansharkfe.controller.interfaces.SignInController;
+import com.example.loansharkfe.model.EventsOfUser;
+import com.example.loansharkfe.util.RecyclerItemClickListener;
 
 public class EventsActivity extends AppCompatActivity {
 
-    private EventsController eventsController;
-    private Button createEvent, deleteEvent;
-    private RecyclerView eventsRecyclerView;
+    public EventsController eventsController;
+    public Button createEvent;
+    public RecyclerView eventsRecyclerView;
+    private EventsOfUser eventsOfUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +29,14 @@ public class EventsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_events);
 
         createEvent = findViewById(R.id.createNewEventBtnEvents);
-        deleteEvent = findViewById(R.id.deleteEventBtnEvents);
         eventsRecyclerView = findViewById(R.id.eventsRecyclerViweEvents);
 
         eventsController = new LoanSharkEventsController(this);
+        try {
+            eventsOfUser = eventsController.fillInRecyclerView();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         createEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +44,19 @@ public class EventsActivity extends AppCompatActivity {
                 eventsController.startCreateEventActivity();
             }
         });
+
+        eventsRecyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(this, eventsRecyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        try {
+                            eventsController.startEventProfileActivity(eventsOfUser.getEvents().get(position));
+                        }
+                        catch (Exception exception){
+                            exception.printStackTrace();
+                        }
+                    }
+                })
+        );
     }
 
     @Override
@@ -43,5 +64,9 @@ public class EventsActivity extends AppCompatActivity {
     {
         super.onBackPressed();
         eventsController.startMenuActivity();
+    }
+
+    public Context getContext(){
+        return this;
     }
 }

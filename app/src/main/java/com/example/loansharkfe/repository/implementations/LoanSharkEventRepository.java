@@ -25,4 +25,30 @@ public class LoanSharkEventRepository implements EventRepository {
             }
         };
     }
+
+    public NetworkingRunnable createGetEventsOfUserRunnable(Integer userId, String jwt) {
+        return new NetworkingRunnable() {
+            @Override
+            public void run() {
+                try{
+                    genericResponse = request.get(PathConfig.getAllEventsOfUser + "/" + userId, null, jwt);
+                } catch (Exception e){
+                    exception = e;
+                }
+            }
+        };
+    }
+
+    public NetworkingRunnable createGetEventByIdRunnable(Integer eventId, String jwt) {
+        return new NetworkingRunnable() {
+            @Override
+            public void run() {
+                try{
+                    genericResponse = request.get(PathConfig.getEventByIdPath + "/" + eventId, null, jwt);
+                } catch (Exception e){
+                    exception = e;
+                }
+            }
+        };
+    }
 }

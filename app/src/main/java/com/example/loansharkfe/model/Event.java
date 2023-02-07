@@ -8,20 +8,25 @@ public class Event {
     private String name;
     private String description;
     private Integer parentEventId;
+    private String parentEventName;
     private Integer adminId;
-    private List<Integer> membersIds;
-    private List<Integer> debtIds;
-    private List<Integer> subEventsIds;
+    private String adminUsername;
+    private List<String> membersUsernames;
+    private List<String> subEventCards;
 
-    public Event(Integer id, String name, String description, Integer parentEventId, Integer adminId, List<Integer> membersIds, List<Integer> debtIds, List<Integer> subEventsIds) {
+    public Event() {
+    }
+
+    public Event(Integer id, String name, String description, Integer parentEventId, Integer adminId, String adminUsername, List<String> membersUsernames, List<String> subEventCards, String parentEventName) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.parentEventId = parentEventId;
         this.adminId = adminId;
-        this.membersIds = membersIds;
-        this.debtIds = debtIds;
-        this.subEventsIds = subEventsIds;
+        this.adminUsername = adminUsername;
+        this.membersUsernames = membersUsernames;
+        this.subEventCards = subEventCards;
+        this.parentEventName = parentEventName;
     }
 
     public Integer getId() {
@@ -64,27 +69,35 @@ public class Event {
         this.adminId = adminId;
     }
 
-    public List<Integer> getMembersIds() {
-        return membersIds;
+    public String getAdminUsername() {
+        return adminUsername;
     }
 
-    public void setMembersIds(List<Integer> membersIds) {
-        this.membersIds = membersIds;
+    public void setAdminUsername(String adminUsername) {
+        this.adminUsername = adminUsername;
     }
 
-    public List<Integer> getDebtIds() {
-        return debtIds;
+    public List<String> getMembersUsernames() {
+        return membersUsernames;
     }
 
-    public void setDebtIds(List<Integer> debtIds) {
-        this.debtIds = debtIds;
+    public void setMembersUsernames(List<String> membersUsernames) {
+        this.membersUsernames = membersUsernames;
     }
 
-    public List<Integer> getSubEventsIds() {
-        return subEventsIds;
+    public List<String> getSubEventCards() {
+        return subEventCards;
     }
 
-    public void setSubEventsIds(List<Integer> subEventsIds) {
-        this.subEventsIds = subEventsIds;
+    public void setSubEventCards(List<String> subEventCards) {
+        this.subEventCards = subEventCards;
+    }
+
+    public String getParentEventName() {
+        return parentEventName;
+    }
+
+    public void setParentEventName(String parentEventName) {
+        this.parentEventName = parentEventName;
     }
 }

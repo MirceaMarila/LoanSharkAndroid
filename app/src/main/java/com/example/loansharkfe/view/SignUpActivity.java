@@ -30,11 +30,10 @@ public class SignUpActivity extends AppCompatActivity {
 
     public EditText email, username, password, firstName, lastName, description;
     public TextView errorMessage;
-    public Button signUp, chooseFromGalley;
+    public Button signUp;
     public ProgressBar progressBar;
     public ArrayList<View> all_elements;
     private SignUpController signUpController;
-    private final int GALLERY_REQ_CODE = 1000;
 
 
     @Override
@@ -51,7 +50,6 @@ public class SignUpActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBarSignUp);
         errorMessage = findViewById(R.id.errorMessageSignUp);
         description = findViewById(R.id.descriptionSignUp);
-        chooseFromGalley = findViewById(R.id.chooseProfilePictureSignUp);
 
         all_elements = new ArrayList<View>();
         all_elements.add(email);
@@ -62,7 +60,6 @@ public class SignUpActivity extends AppCompatActivity {
         all_elements.add(signUp);
         all_elements.add(errorMessage);
         all_elements.add(description);
-        all_elements.add(chooseFromGalley);
 
         progressBar.setVisibility(View.GONE);
         errorMessage.clearComposingText();
@@ -78,44 +75,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        chooseFromGalley.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent gallery = new Intent(Intent.ACTION_PICK);
-                gallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(gallery, GALLERY_REQ_CODE);
-            }
-        });
 
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode==RESULT_OK){
-            if (requestCode==GALLERY_REQ_CODE){
-
-                try {
-                    final Uri imageUri = data.getData();
-                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                    final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    selectedImage.compress(Bitmap.CompressFormat.JPEG,100,baos);
-                    byte[] b = baos.toByteArray();
-                    String encImage = Base64.encodeToString(b, Base64.DEFAULT);
-
-                    signUpController.updateProfilePicture(encImage);
-                }
-                catch (FileNotFoundException exception){
-                    exception.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }
     }
 
     @Override
