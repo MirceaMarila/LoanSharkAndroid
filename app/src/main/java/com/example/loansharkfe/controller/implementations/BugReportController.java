@@ -70,7 +70,7 @@ public class BugReportController {
                         BugReport bugReport = new BugReport(exception);
                         if (bugReport.getClassName().equals(""))
                             bugReport.setClassName(context.getClass().getSimpleName());
-                        Toast.makeText(context, context.getClass().getSimpleName(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Bug reported! Thank you!", Toast.LENGTH_LONG).show();
 
                         NetworkingRunnable bugReportRunnable = bugReportRepository.createSendErrorRunnable(bugReport);
                         Thread bugReportThread = new Thread(bugReportRunnable);

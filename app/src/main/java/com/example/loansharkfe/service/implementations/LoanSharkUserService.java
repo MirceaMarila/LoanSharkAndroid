@@ -68,7 +68,7 @@ public class LoanSharkUserService implements UserService {
             throw new FieldCompletedIncorrectly("Username can not contain @");
 
         if (userCreate.getUsername().isEmpty())
-            throw new FieldCompletedIncorrectly("UserCreate name must not be empty!");
+            throw new FieldCompletedIncorrectly("Username must not be empty!");
 
         if (userCreate.getFirstName().isEmpty())
             throw new FieldCompletedIncorrectly("First Name must not be empty!");

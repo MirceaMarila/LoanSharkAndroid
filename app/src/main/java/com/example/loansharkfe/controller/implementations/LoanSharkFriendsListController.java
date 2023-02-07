@@ -25,7 +25,6 @@ import java.util.List;
 public class LoanSharkFriendsListController implements FriendsListController {
 
     private final FriendsListActivity friendsListActivity;
-    private AddFriendController addFriendController;
     private UserService userService;
     private LinearLayoutManager layoutManager;
     private Adapter adapter;
@@ -35,7 +34,6 @@ public class LoanSharkFriendsListController implements FriendsListController {
 
     public LoanSharkFriendsListController(FriendsListActivity friendsListActivity) {
         this.friendsListActivity = friendsListActivity;
-        this.addFriendController = new AddFriendController(friendsListActivity.getContext(), friendsListActivity);
         this.userService = new LoanSharkUserService();
         this.sharedPreferencesService = new SharedPreferencesService(friendsListActivity.getApplicationContext());
     }
@@ -55,13 +53,12 @@ public class LoanSharkFriendsListController implements FriendsListController {
     @SuppressLint("NotifyDataSetChanged")
     public void fillInRecyclerView(RecyclerView recyclerView) throws Exception {
         User currentUser = userService.getUserByUsername(sharedPreferencesService.getSharedPreferences("user"), friendsListActivity.getApplicationContext(), null);
-        UserProfile currentUserProfile = userService.getUserProfileById(Integer.parseInt(sharedPreferencesService.getSharedPreferences("id")), friendsListActivity.getApplicationContext(), null);
-        List<Integer> pendingFriendRequestsUsersIds = currentUser.getFriendsIds();
+        List<Integer> friendsIds = currentUser.getFriendsIds();
 
         List<FriendCard> friendsList = new ArrayList<>();
-        for (Integer friendId: pendingFriendRequestsUsersIds){
+        for (Integer friendId: friendsIds){
             UserProfile currentFriend = userService.getUserProfileById(friendId, friendsListActivity.getApplicationContext(), null);
-            friendsList.add(new FriendCard(currentUserProfile.getImage().get("data"),currentFriend.getUsername(), currentFriend.getFirstName(),currentFriend.getLastName()));
+            friendsList.add(new FriendCard(currentFriend.getImage().get("data"),currentFriend.getUsername(), currentFriend.getFirstName(),currentFriend.getLastName()));
         }
 
         layoutManager = new LinearLayoutManager(friendsListActivity.getContext());

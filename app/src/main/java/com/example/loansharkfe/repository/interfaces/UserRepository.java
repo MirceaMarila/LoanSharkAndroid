@@ -1,5 +1,6 @@
 package com.example.loansharkfe.repository.interfaces;
 
+import com.example.loansharkfe.dto.EventCreate;
 import com.example.loansharkfe.dto.ImageDto;
 import com.example.loansharkfe.dto.UsersIdsRequest;
 import com.example.loansharkfe.model.UserCreate;
