@@ -19,6 +19,7 @@ import com.example.loansharkfe.R;
 import com.example.loansharkfe.controller.interfaces.ManagePendingRequestsController;
 import com.example.loansharkfe.model.FriendCard;
 import com.example.loansharkfe.model.User;
+import com.example.loansharkfe.model.UserProfile;
 import com.example.loansharkfe.service.implementations.LoanSharkUserService;
 import com.example.loansharkfe.service.implementations.SharedPreferencesService;
 import com.example.loansharkfe.service.interfaces.UserService;
@@ -61,8 +62,8 @@ public class LoanSharkManagePendingRequestsController implements ManagePendingRe
 
         friendsList = new ArrayList<>();
         for (Integer friendId: pendingFriendRequestsUsersIds){
-            User currentFriend = userService.getUserById(friendId, managePendingRequestsActivity.getApplicationContext(), null);
-            friendsList.add(new FriendCard(R.drawable.default_profile_pic,currentFriend.getUsername(), currentFriend.getFirstName(),currentFriend.getLastName()));
+            UserProfile currentFriend = userService.getUserProfileById(friendId, managePendingRequestsActivity.getApplicationContext(), null);
+            friendsList.add(new FriendCard(currentFriend.getImage().get("data"),currentFriend.getUsername(), currentFriend.getFirstName(),currentFriend.getLastName()));
         }
 
         layoutManager = new LinearLayoutManager(managePendingRequestsActivity.getContext());

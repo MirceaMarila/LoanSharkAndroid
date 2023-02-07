@@ -10,5 +10,5 @@ public interface ProfileController {
 
     void fillInAllTheFields() throws Exception;
 
-    void updateProfilePicture(byte[] encodedImage) throws Exception;
+    void updateProfilePicture(String image) throws Exception;
 }

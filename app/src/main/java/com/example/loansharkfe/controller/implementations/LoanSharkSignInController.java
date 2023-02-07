@@ -82,13 +82,21 @@ public class LoanSharkSignInController implements SignInController {
             String jwt = json.objectMapper.readValue(loginRunnable.getGenericResponse().getBody(), JwtResponse.class).getJwt();
             sharedPreferencesService.postSharedPreferences("jwt", jwt);
             String currentUsername = userLogin.getUsernameOrEmail();
+            Integer currentId = null;
 
+            User currentUser;
             if (currentUsername.contains("@")) {
-                User currentUser = userService.getUserByEmail(userLogin.getUsernameOrEmail(), signInActivity.getApplicationContext(), progressBarController);
+                currentUser = userService.getUserByEmail(userLogin.getUsernameOrEmail(), signInActivity.getApplicationContext(), progressBarController);
                 currentUsername = currentUser.getUsername();
             }
+            else {
+                currentUser = userService.getUserByUsername(userLogin.getUsernameOrEmail(), signInActivity.getApplicationContext(), progressBarController);
+            }
+            currentId = currentUser.getId();
 
             sharedPreferencesService.postSharedPreferences("user", currentUsername);
+            if (currentId != null)
+                sharedPreferencesService.postSharedPreferences("id", currentId.toString());
             startMenuActivity();
 
         } catch (ErrorFromServer e) {

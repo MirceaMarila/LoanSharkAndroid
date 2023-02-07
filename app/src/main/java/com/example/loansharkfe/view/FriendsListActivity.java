@@ -34,11 +34,21 @@ public class FriendsListActivity extends AppCompatActivity {
         friendsListController = new LoanSharkFriendsListController(this);
         addFriendController = new AddFriendController(this, this);
 
+        try {
+            friendsListController.fillInRecyclerView(friendsListRecyclerView);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         final SwipeRefreshLayout pullToRefresh = findViewById(R.id.pullToRefreshFriendsList);
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //refreshData(); // your code
+                try {
+                    friendsListController.fillInRecyclerView(friendsListRecyclerView);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 pullToRefresh.setRefreshing(false);
             }
         });

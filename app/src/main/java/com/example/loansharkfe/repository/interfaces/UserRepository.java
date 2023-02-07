@@ -1,7 +1,7 @@
 package com.example.loansharkfe.repository.interfaces;
 
+import com.example.loansharkfe.dto.ImageDto;
 import com.example.loansharkfe.dto.UsersIdsRequest;
-import com.example.loansharkfe.model.BytesImage;
 import com.example.loansharkfe.model.UserCreate;
 import com.example.loansharkfe.model.UserLogin;
 import com.example.loansharkfe.util.NetworkingRunnable;
@@ -20,9 +20,11 @@ public interface UserRepository {
 
     NetworkingRunnable sendFriendRequestRunnable(Integer myId, UsersIdsRequest usersIdsRequest, String jwt);
 
-    NetworkingRunnable updateProfilePictureRunnable(Integer myId, BytesImage bytesImage, String jwt);
+    NetworkingRunnable updateProfilePictureRunnable(Integer myId, ImageDto imageDto, String jwt);
 
     NetworkingRunnable acceptFriendRequestRunnable(Integer myId, Integer friendId, String jwt);
 
     NetworkingRunnable declineFriendRequestRunnable(Integer myId, Integer friendId, String jwt);
+
+    NetworkingRunnable getUserProfileByIdRunnable(Integer id, String jwt);
 }

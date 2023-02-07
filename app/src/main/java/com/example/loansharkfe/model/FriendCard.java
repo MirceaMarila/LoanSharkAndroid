@@ -2,23 +2,23 @@ package com.example.loansharkfe.model;
 
 public class FriendCard {
 
-    private int image;
+    private String image;
     private String username;
     private String firstName;
     private String lastName;
 
-    public FriendCard(int image, String username, String firstName, String lastName) {
+    public FriendCard(String image, String username, String firstName, String lastName) {
         this.image = image;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

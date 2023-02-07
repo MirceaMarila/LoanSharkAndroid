@@ -1,34 +1,20 @@
 package com.example.loansharkfe.controller.implementations;
 
-import static androidx.core.app.ActivityCompat.startActivityForResult;
-
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.util.Base64;
 
-import com.example.loansharkfe.R;
 import com.example.loansharkfe.controller.interfaces.ProfileController;
-import com.example.loansharkfe.model.BytesImage;
-import com.example.loansharkfe.model.User;
+import com.example.loansharkfe.dto.ImageDto;
+import com.example.loansharkfe.model.UserProfile;
 import com.example.loansharkfe.service.implementations.LoanSharkUserService;
 import com.example.loansharkfe.service.implementations.SharedPreferencesService;
 import com.example.loansharkfe.service.interfaces.UserService;
 import com.example.loansharkfe.util.Json;
-import com.example.loansharkfe.view.EventsActivity;
 import com.example.loansharkfe.view.FriendsListActivity;
-import com.example.loansharkfe.view.ManagePendingRequestsActivity;
 import com.example.loansharkfe.view.MenuActivity;
 import com.example.loansharkfe.view.ProfileActivity;
-import com.fasterxml.jackson.core.JsonProcessingException;
-
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.net.URI;
 
 public class LoanSharkProfileController implements ProfileController {
 
@@ -57,17 +43,20 @@ public class LoanSharkProfileController implements ProfileController {
     }
 
     public void fillInAllTheFields() throws Exception {
-            User currentUser = userService.getUserByUsername(sharedPreferencesService.getSharedPreferences("user"), profileActivity.getApplicationContext(), null);
+            UserProfile currentUser = userService.getUserProfileById(Integer.parseInt(sharedPreferencesService.getSharedPreferences("id")), profileActivity.getApplicationContext(), null);
             profileActivity.username.setText(currentUser.getUsername());
-            profileActivity.email.setText(currentUser.getEmail());
+            profileActivity.description.setText(currentUser.getDescription());
             profileActivity.firstName.setText(currentUser.getFirstName());
             profileActivity.lastName.setText(currentUser.getLastName());
-//            profileActivity.profilePicture.setBackgroundResource(R.drawable.default_profile_pic);
+
+            byte[] decodedString = Base64.decode(currentUser.getImage().get("data"), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            profileActivity.profilePicture.setImageBitmap(decodedByte);
     }
 
-    public void updateProfilePicture(byte[] image) throws Exception {
-        BytesImage bytesImage = new BytesImage(image);
-        userService.createUpdateProfilePictureRunnable(bytesImage, profileActivity.getApplicationContext());
+    public void updateProfilePicture(String image) throws Exception {
+        ImageDto imageDto = new ImageDto(image);
+        userService.createUpdateProfilePictureRunnable(imageDto, profileActivity.getApplicationContext());
     }
 
 

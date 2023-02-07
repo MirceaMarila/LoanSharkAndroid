@@ -1,5 +1,8 @@
 package com.example.loansharkfe.util;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +35,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull Adapter.ViewHolder holder, int position) {
 
-        int resource = friendsList.get(position).getImage();
+        String resource = friendsList.get(position).getImage();
         String username=friendsList.get(position).getUsername();
         String firstName=friendsList.get(position).getFirstName();
         String lastName=friendsList.get(position).getLastName();
@@ -65,8 +68,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             lastName=itemView.findViewById(R.id.lastNameDesign);
         }
 
-        public void setData(int resource, String userName, String firstname, String lastname) {
-//            image.setImageResource(resource);
+        public void setData(String imageString, String userName, String firstname, String lastname) {
+            byte[] decodedString = Base64.decode(imageString, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            image.setImageBitmap(decodedByte);
             username.setText(userName);
             firstName.setText(firstname);
             lastName.setText(lastname);

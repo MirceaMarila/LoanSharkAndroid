@@ -23,4 +23,6 @@ public class PathConfig {
     public static final String updateProfilePicturePath = fullBasePath + "/user/set/profile/picture";
 
     public static final String manageFriendRequestPath = fullBasePath + "/user/friends/request";
+
+    public static final String getUserProfileByIdPath = fullBasePath + "/user/profile";
 }

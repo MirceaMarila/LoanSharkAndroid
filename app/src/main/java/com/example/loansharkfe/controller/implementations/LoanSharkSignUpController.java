@@ -1,12 +1,10 @@
 package com.example.loansharkfe.controller.implementations;
 
 import android.content.Intent;
-import android.view.View;
-import android.widget.Toast;
 
 import com.example.loansharkfe.constants.BugTypes;
 import com.example.loansharkfe.controller.interfaces.SignUpController;
-import com.example.loansharkfe.dto.GenericResponse;
+import com.example.loansharkfe.dto.ImageDto;
 import com.example.loansharkfe.exceptions.ErrorFromServer;
 import com.example.loansharkfe.exceptions.FieldCompletedIncorrectly;
 import com.example.loansharkfe.model.User;
@@ -82,7 +80,8 @@ public class LoanSharkSignUpController implements SignUpController {
                 signUpActivity.username.getText().toString(),
                 signUpActivity.password.getText().toString(),
                 signUpActivity.firstName.getText().toString(),
-                signUpActivity.lastName.getText().toString()
+                signUpActivity.lastName.getText().toString(),
+                signUpActivity.description.getText().toString()
                 );
 
         try {
@@ -103,6 +102,7 @@ public class LoanSharkSignUpController implements SignUpController {
 
             User user = json.objectMapper.readValue(createNewUserRunnable.getGenericResponse().getBody(), User.class);
             sharedPreferencesService.postSharedPreferences("user", user.getUsername());
+            sharedPreferencesService.postSharedPreferences("id", user.getId().toString());
             startMenuActivity();
 
 
@@ -164,5 +164,10 @@ public class LoanSharkSignUpController implements SignUpController {
         signUpActivity.startActivity(intent);
         signUpActivity.finish();
 
+    }
+
+    public void updateProfilePicture(String image) throws Exception {
+        ImageDto imageDto = new ImageDto(image);
+        userService.createUpdateProfilePictureRunnable(imageDto, signUpActivity.getApplicationContext());
     }
 }

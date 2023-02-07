@@ -17,12 +17,13 @@ public class User {
     private List<Integer> friendsIds;
     private List<Integer> pendingFriendRequestsUsersIds;
     private Integer imageId;
+    private String description;
 
 
     public User() {
     }
 
-    public User(Integer id, String email, String username, String firstName, String lastName, Boolean enabled, Boolean accountNonLocked, Boolean accountNonExpired, Boolean credentialsNonExpired, List<Integer> roles, List<Integer> friends, List<Integer> pendingFriendRequests, Integer imageId) {
+    public User(Integer id, String email, String username, String firstName, String lastName, Boolean enabled, Boolean accountNonLocked, Boolean accountNonExpired, Boolean credentialsNonExpired, List<Integer> roles, List<Integer> friends, List<Integer> pendingFriendRequests, Integer imageId, String description) {
         this.id = id;
         this.email = email;
         this.username = username;
@@ -36,6 +37,7 @@ public class User {
         this.friendsIds = friends;
         this.pendingFriendRequestsUsersIds = pendingFriendRequests;
         this.imageId = imageId;
+        this.description = description;
     }
 
     public void setId(Integer id) {
@@ -140,5 +142,13 @@ public class User {
 
     public void setImageId(Integer imageId) {
         this.imageId = imageId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

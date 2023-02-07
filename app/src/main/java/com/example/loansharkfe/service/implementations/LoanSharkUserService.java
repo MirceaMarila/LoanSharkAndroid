@@ -3,12 +3,13 @@ package com.example.loansharkfe.service.implementations;
 import android.content.Context;
 
 import com.example.loansharkfe.controller.implementations.ProgressBarController;
+import com.example.loansharkfe.dto.ImageDto;
 import com.example.loansharkfe.dto.UsersIdsRequest;
 import com.example.loansharkfe.exceptions.FieldCompletedIncorrectly;
-import com.example.loansharkfe.model.BytesImage;
 import com.example.loansharkfe.model.User;
 import com.example.loansharkfe.model.UserCreate;
 import com.example.loansharkfe.model.UserLogin;
+import com.example.loansharkfe.model.UserProfile;
 import com.example.loansharkfe.repository.implementations.LoanSharkUserRepository;
 import com.example.loansharkfe.repository.interfaces.UserRepository;
 import com.example.loansharkfe.service.interfaces.UserService;
@@ -75,6 +76,9 @@ public class LoanSharkUserService implements UserService {
         if (userCreate.getLastName().isEmpty())
             throw new FieldCompletedIncorrectly("Last Name must not be empty!");
 
+        if (userCreate.getDescription().isEmpty())
+            throw new FieldCompletedIncorrectly("Description must not be empty!");
+
         return userRepository.createSaveNewUserRunnable(userCreate);
 
     }
@@ -82,20 +86,39 @@ public class LoanSharkUserService implements UserService {
     public User getUserById(Integer id, Context applicationContext, ProgressBarController progressBarController) throws Exception {
         SharedPreferencesService sharedPreferencesService = new SharedPreferencesService(applicationContext);
         String jwt = sharedPreferencesService.getSharedPreferences("jwt");
-        NetworkingRunnable getUserByUsernameRunnable = userRepository.getUserByIdRunnable(id, jwt);
+        NetworkingRunnable getUserByIdRunnable = userRepository.getUserByIdRunnable(id, jwt);
 
-        Thread checkUserExistance = new Thread(getUserByUsernameRunnable);
+        Thread getUserById = new Thread(getUserByIdRunnable);
         if (progressBarController != null)
             progressBarController.showProgressBar();
-        checkUserExistance.start();
-        checkUserExistance.join();
+        getUserById.start();
+        getUserById.join();
         if (progressBarController != null)
             progressBarController.hideProgressBar();
 
-        if (getUserByUsernameRunnable.getException() != null)
-            throw getUserByUsernameRunnable.getException();
+        if (getUserByIdRunnable.getException() != null)
+            throw getUserByIdRunnable.getException();
 
-        return json.objectMapper.readValue(getUserByUsernameRunnable.getGenericResponse().getBody(), User.class);
+        return json.objectMapper.readValue(getUserByIdRunnable.getGenericResponse().getBody(), User.class);
+    }
+
+    public UserProfile getUserProfileById(Integer id, Context applicationContext, ProgressBarController progressBarController) throws Exception {
+        SharedPreferencesService sharedPreferencesService = new SharedPreferencesService(applicationContext);
+        String jwt = sharedPreferencesService.getSharedPreferences("jwt");
+        NetworkingRunnable getUserProfileByIdRunnable = userRepository.getUserProfileByIdRunnable(id, jwt);
+
+        Thread getUserProfileById = new Thread(getUserProfileByIdRunnable);
+        if (progressBarController != null)
+            progressBarController.showProgressBar();
+        getUserProfileById.start();
+        getUserProfileById.join();
+        if (progressBarController != null)
+            progressBarController.hideProgressBar();
+
+        if (getUserProfileByIdRunnable.getException() != null)
+            throw getUserProfileByIdRunnable.getException();
+
+        return json.objectMapper.readValue(getUserProfileByIdRunnable.getGenericResponse().getBody(), UserProfile.class);
     }
 
     public User getUserByUsername(String username, Context applicationContext, ProgressBarController progressBarController) throws Exception {
@@ -103,11 +126,11 @@ public class LoanSharkUserService implements UserService {
         String jwt = sharedPreferencesService.getSharedPreferences("jwt");
         NetworkingRunnable getUserByUsernameRunnable = userRepository.getUserByUsernameRunnable(username, jwt);
 
-        Thread checkUserExistance = new Thread(getUserByUsernameRunnable);
+        Thread getUserByUsername = new Thread(getUserByUsernameRunnable);
         if (progressBarController != null)
             progressBarController.showProgressBar();
-        checkUserExistance.start();
-        checkUserExistance.join();
+        getUserByUsername.start();
+        getUserByUsername.join();
         if (progressBarController != null)
             progressBarController.hideProgressBar();
 
@@ -140,12 +163,19 @@ public class LoanSharkUserService implements UserService {
         return userRepository.sendFriendRequestRunnable(myId, usersIdsRequest, jwt);
     }
 
-    public NetworkingRunnable createUpdateProfilePictureRunnable(BytesImage bytesImage, Context applicationContext) throws Exception {
+    public void createUpdateProfilePictureRunnable(ImageDto imageDto, Context applicationContext) throws Exception {
         SharedPreferencesService sharedPreferencesService = new SharedPreferencesService(applicationContext);
         String jwt = sharedPreferencesService.getSharedPreferences("jwt");
         Integer myId = getUserByUsername(sharedPreferencesService.getSharedPreferences("user"), applicationContext, null).getId();
 
-        return userRepository.updateProfilePictureRunnable(myId, bytesImage, jwt);
+        NetworkingRunnable updateProfilePictureRunnable = userRepository.updateProfilePictureRunnable(myId, imageDto, jwt);
+
+        Thread updateProfilePicture = new Thread(updateProfilePictureRunnable);
+        updateProfilePicture.start();
+        updateProfilePicture.join();
+
+        if (updateProfilePictureRunnable.getException() != null)
+            throw updateProfilePictureRunnable.getException();
     }
 
     public NetworkingRunnable createAcceptFriendRequestRunnable(Integer myId, Integer friendId, Context applicationContext){

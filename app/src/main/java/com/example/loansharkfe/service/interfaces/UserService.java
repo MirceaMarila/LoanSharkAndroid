@@ -3,12 +3,13 @@ package com.example.loansharkfe.service.interfaces;
 import android.content.Context;
 
 import com.example.loansharkfe.controller.implementations.ProgressBarController;
+import com.example.loansharkfe.dto.ImageDto;
 import com.example.loansharkfe.dto.UsersIdsRequest;
 import com.example.loansharkfe.exceptions.FieldCompletedIncorrectly;
-import com.example.loansharkfe.model.BytesImage;
 import com.example.loansharkfe.model.User;
 import com.example.loansharkfe.model.UserCreate;
 import com.example.loansharkfe.model.UserLogin;
+import com.example.loansharkfe.model.UserProfile;
 import com.example.loansharkfe.util.NetworkingRunnable;
 
 public interface UserService {
@@ -27,9 +28,11 @@ public interface UserService {
 
     NetworkingRunnable createSendFriendRequestRunnable(Integer myId, UsersIdsRequest usersIdsRequest, String jwt);
 
-    NetworkingRunnable createUpdateProfilePictureRunnable(BytesImage bytesImage, Context applicationContext) throws Exception;
+    void createUpdateProfilePictureRunnable(ImageDto imageDto, Context applicationContext) throws Exception;
 
     NetworkingRunnable createAcceptFriendRequestRunnable(Integer myId, Integer friendId, Context applicationContext);
 
     NetworkingRunnable createDeclineFriendRequestRunnable(Integer myId, Integer friendId, Context applicationContext);
+
+    UserProfile getUserProfileById(Integer id, Context applicationContext, ProgressBarController progressBarController) throws Exception;
 }
